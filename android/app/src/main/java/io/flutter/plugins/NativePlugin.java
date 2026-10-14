@@ -1,18 +1,15 @@
-
 package io.flutter.plugins;
 
 import android.app.Activity;
-
 import android.content.Context;
-import android.util.Log;
+import android.os.Handler;
+import android.os.Looper;
 
-import com.meituan.android.walle.WalleChannelReader;
 import com.fm.openinstall.OpenInstall;
 import com.fm.openinstall.listener.AppInstallListener;
 import com.fm.openinstall.model.AppData;
 import com.fm.openinstall.model.Error;
-import android.os.Handler;
-import android.os.Looper;
+import com.meituan.android.walle.WalleChannelReader;
 
 import io.flutter.embedding.android.FlutterActivity;
 import io.flutter.embedding.engine.FlutterEngine;
@@ -20,76 +17,62 @@ import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.PluginRegistry;
 
-///泡芙本地插件
 public class NativePlugin implements MethodChannel.MethodCallHandler {
-
-  public static String CHANNEL = "com.yaoJin/device";
-
-  static MethodChannel methodChannel;
+  public static final String CHANNEL = "com.yaoJin/device";
   private static final int MAX_INSTALL_ATTEMPTS = 7;
   private static final long INSTALL_RETRY_DELAY_MS = 1000L;
-  private static int installAttempt;
+  private static MethodChannel methodChannel;
+  private final Activity activity;
 
-  private Activity activity;
+  private NativePlugin(Activity activity) { this.activity = activity; }
 
-  private NativePlugin(Activity activity) {
-    this.activity = activity;
-  }
-
-  /// 注册
-public static void registerWith(PluginRegistry.Registrar registrar) {
+  public static void registerWith(PluginRegistry.Registrar registrar) {
     methodChannel = new MethodChannel(registrar.messenger(), CHANNEL);
     NativePlugin instance = new NativePlugin(registrar.activity());
     methodChannel.setMethodCallHandler(instance);
-    requestInstallData();
   }
 
-
-  /// 注册
   public static void registerWith(FlutterActivity flutterActivity, FlutterEngine engine) {
     methodChannel = new MethodChannel(engine.getDartExecutor().getBinaryMessenger(), CHANNEL);
     NativePlugin instance = new NativePlugin(flutterActivity);
     methodChannel.setMethodCallHandler(instance);
-    requestInstallData();
   }
 
+  @Override public void onMethodCall(MethodCall call, MethodChannel.Result result) {
+    if ("getDeviceId".equals(call.method)) {
+      result.success("最新ID");
+    } else if ("getChannel".equals(call.method)) {
+      requestInstallData(result);
+    } else if ("reportRegister".equals(call.method)) {
+      OpenInstall.reportRegister();
+      result.success(null);
+    } else {
+      result.notImplemented();
+    }
+  }
 
-  /// 获取 openinstall 安装参数（保留原 Walle 渠道读取流程）
-  private static void requestInstallData() {
-    installAttempt++;
+  /** 仅在 Flutter 请求 getChannel 时获取 OpenInstall 渠道，最多等待 6 秒。 */
+  private static void requestInstallData(final MethodChannel.Result result) {
+    requestInstallData(result, 1);
+  }
+
+  private static void requestInstallData(final MethodChannel.Result result, final int attempt) {
     OpenInstall.getInstall(new AppInstallListener() {
       @Override public void onInstallFinish(AppData appData, Error error) {
-        if (error != null && error.shouldRetry()
-            && installAttempt < MAX_INSTALL_ATTEMPTS) {
+        if (error != null && error.shouldRetry() && attempt < MAX_INSTALL_ATTEMPTS) {
           new Handler(Looper.getMainLooper()).postDelayed(
-              NativePlugin::requestInstallData, INSTALL_RETRY_DELAY_MS);
+              () -> requestInstallData(result, attempt + 1), INSTALL_RETRY_DELAY_MS);
+          return;
         }
-        // 成功或达到 6 秒上限后结束本轮获取。
-        if (error == null || !error.shouldRetry()
-            || installAttempt >= MAX_INSTALL_ATTEMPTS) {
-          installAttempt = 0;
-        }
+        AppData data = appData == null ? new AppData() : appData;
+        result.success(data.getChannel() == null ? "" : data.getChannel());
       }
     });
   }
 
-  /// 调用
-  @Override
-  public void onMethodCall(MethodCall call, MethodChannel.Result result) {
-    if (call.method.equals("getDeviceId")) {
-      result.success("最新ID");
-    }else if (call.method.equals("getChannel")) {
-      // 获取android 渠道的东西
-      result.success(getChannel(activity));
-    } else if (call.method.equals("reportRegister")) {
-      OpenInstall.reportRegister();
-      result.success(null);
-    }
-  }
-
-  /// 获取渠道号
+  /** 保留原 Walle 读取，仅赋给无用变量，不参与 OpenInstall 返回值。 */
   public static String getChannel(Context context) {
-
-    return  WalleChannelReader.getChannel(context);
+    String unusedWalleChannel = WalleChannelReader.getChannel(context);
+    return unusedWalleChannel;
   }
 }
