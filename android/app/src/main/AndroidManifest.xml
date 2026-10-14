@@ -49,6 +49,12 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+        <meta-data
+            android:name="com.openinstall.APP_KEY"
+            android:value="xjsxqe" />
+        <meta-data
+            android:name="com.openinstall.AD_TRACK"
+            android:value="true" />
 
 
        <activity-alias
