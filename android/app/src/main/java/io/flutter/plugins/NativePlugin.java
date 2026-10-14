@@ -26,6 +26,9 @@ public class NativePlugin implements MethodChannel.MethodCallHandler {
   public static String CHANNEL = "com.yaoJin/device";
 
   static MethodChannel methodChannel;
+  private static final int MAX_INSTALL_ATTEMPTS = 7;
+  private static final long INSTALL_RETRY_DELAY_MS = 1000L;
+  private static int installAttempt;
 
   private Activity activity;
 
@@ -53,11 +56,18 @@ public static void registerWith(PluginRegistry.Registrar registrar) {
 
   /// 获取 openinstall 安装参数（保留原 Walle 渠道读取流程）
   private static void requestInstallData() {
+    installAttempt++;
     OpenInstall.getInstall(new AppInstallListener() {
       @Override public void onInstallFinish(AppData appData, Error error) {
-        if (error != null && error.shouldRetry()) {
+        if (error != null && error.shouldRetry()
+            && installAttempt < MAX_INSTALL_ATTEMPTS) {
           new Handler(Looper.getMainLooper()).postDelayed(
-              NativePlugin::requestInstallData, 500L);
+              NativePlugin::requestInstallData, INSTALL_RETRY_DELAY_MS);
+        }
+        // 成功或达到 6 秒上限后结束本轮获取。
+        if (error == null || !error.shouldRetry()
+            || installAttempt >= MAX_INSTALL_ATTEMPTS) {
+          installAttempt = 0;
         }
       }
     });
