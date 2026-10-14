@@ -1,0 +1,43 @@
+<svg id="组_7530" data-name="组 7530" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="14.507" height="13.385" viewBox="0 0 14.507 13.385">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: url(#linear-gradient);
+      }
+
+      .cls-2 {
+        fill: url(#linear-gradient-2);
+      }
+
+      .cls-3 {
+        fill: #d09eec;
+      }
+
+      .cls-4 {
+        fill: #c778ba;
+      }
+
+      .cls-5 {
+        fill: #e4749d;
+      }
+
+      .cls-6 {
+        fill: #fc736d;
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="-273.378" y1="52.785" x2="-272.644" y2="53.467" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#f77675"/>
+      <stop offset="0.995" stop-color="#b574f0"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="-1.718" y1="18.205" x2="-0.884" y2="18.948" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#ffd858"/>
+      <stop offset="0.999" stop-color="#fdb953"/>
+    </linearGradient>
+  </defs>
+  <path id="路径_86" data-name="路径 86" class="cls-1" d="M5527.132,810.993l.3.171a.306.306,0,0,0,.349-.04,1.088,1.088,0,0,1,1.793,1.016.306.306,0,0,0,.145.32l.3.171a.947.947,0,0,0,1.277-.387l2.274-4.009a.948.948,0,0,0-.324-1.3l-.3-.171a.307.307,0,0,0-.35.04,1.088,1.088,0,0,1-1.793-1.017.308.308,0,0,0-.146-.32l-.3-.171a.947.947,0,0,0-1.277.387l-2.274,4.009A.948.948,0,0,0,5527.132,810.993Z" transform="translate(-5519.197 -802.08)"/>
+  <path id="路径_87" data-name="路径 87" class="cls-2" d="M5517.977,798.516l-.646.173a.59.59,0,0,0-.431.509,2.133,2.133,0,0,1-3.84,1.029.589.589,0,0,0-.627-.226l-.646.174a1.781,1.781,0,0,0-1.256,2.174l2.191,8.176a1.781,1.781,0,0,0,2.175,1.255l.646-.173a.589.589,0,0,0,.431-.509,2.133,2.133,0,0,1,3.84-1.029.589.589,0,0,0,.627.226l.646-.174a1.78,1.78,0,0,0,1.256-2.174l-2.191-8.175A1.78,1.78,0,0,0,5517.977,798.516Z" transform="translate(-5510.47 -798.455)"/>
+  <rect id="矩形_1786" data-name="矩形 1786" class="cls-3" width="1.289" height="0.736" rx="0.368" transform="translate(1.86 5.031) rotate(-15)"/>
+  <rect id="矩形_1787" data-name="矩形 1787" class="cls-4" width="1.289" height="0.736" rx="0.368" transform="matrix(0.966, -0.259, 0.259, 0.966, 3.639, 4.555)"/>
+  <rect id="矩形_1788" data-name="矩形 1788" class="cls-5" width="1.289" height="0.736" rx="0.368" transform="matrix(0.966, -0.259, 0.259, 0.966, 5.595, 4.03)"/>
+  <rect id="矩形_1789" data-name="矩形 1789" class="cls-6" width="1.289" height="0.736" rx="0.368" transform="translate(7.552 3.506) rotate(-15)"/>
+</svg>

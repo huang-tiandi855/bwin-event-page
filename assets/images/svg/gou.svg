@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="18.071" height="15.243" viewBox="0 0 18.071 15.243">
+    <defs>
+        <filter id="wwq2baa7oa" x="0" y="0" width="18.071" height="15.243" filterUnits="userSpaceOnUse">
+            <feOffset/>
+            <feGaussianBlur stdDeviation="1.5" result="blur"/>
+            <feFlood flood-color="#440080"/>
+            <feComposite operator="in" in2="blur"/>
+            <feComposite in="SourceGraphic"/>
+        </filter>
+    </defs>
+    <g style="filter:url(#wwq2baa7oa)" data-name="组 7520">
+        <path data-name="联合 12" d="m-6635.516-3171.45-2.827-2.829a1 1 0 0 1 0-1.415 1 1 0 0 1 1.413 0l2.122 2.122 3.536-3.535a1 1 0 0 1 1.415 0 1 1 0 0 1 0 1.413l-4.244 4.244a1 1 0 0 1-.707.292 1 1 0 0 1-.708-.292z" transform="translate(6643.136 3181.896)" style="fill:#fff"/>
+    </g>
+</svg>
