@@ -1,0 +1,118 @@
+import 'package:comics_app/common/store/store.dart';
+import 'package:get/get.dart';
+
+import '../../../common/apis/bookShelf.dart';
+import '../../../common/entities/media_list_entity.dart';
+import '../../../common/http/base_resp_bean.dart';
+import 'cartoon_item_state.dart';
+
+class CartoonItemLogic extends GetxController {
+  final CartoonItemState state = CartoonItemState();
+
+  @override
+  void onInit() {
+    // TODO: implement onReady
+    super.onInit();
+    getData();
+    // getCartoonHot();
+
+    Map map = {};
+
+    map["链路"] = "书架-动漫";
+
+    ConfigStore.to.trackData('书架浏览', map);
+  }
+
+  onRefresh() async {
+    state.pageNumber = 1;
+    state.list.clear();
+    getData();
+
+    state.wantPageNumber = 1;
+    state.wantToSeeList.clear();
+    // getCartoonHot();
+  }
+
+  onLoad() async {
+    if (state.isCollectionEmpty) {
+      state.wantPageNumber++;
+      getCartoonHot();
+    } else {
+      state.pageNumber++;
+      getData();
+    }
+  }
+
+  //获取收藏数据
+  void getData() async {
+    try {
+      Map<String, dynamic> data = {
+        "kind": state.kind.index,
+        "page": state.pageNumber,
+        "pageSize": state.pageSize
+      };
+      BaseRespBean baseRespBean = await BookApi.getCartoonCollectList(data);
+      if (baseRespBean.isSuccess) {
+        MediaListEntity mediaListEntity = MediaListEntity.fromJson(baseRespBean.data);
+
+        state.list.addAll(mediaListEntity.mediaList ?? []);
+
+        /*bool hasMore = (mediaListEntity.mediaList?.length ?? 0) < state.pageSize
+            ? false
+            : true;*/
+
+        bool hasMore = mediaListEntity.hasNext!;
+
+        state.pullRefreshController.requestSuccess(isFirstPageNum: state.pageNumber == 1);
+
+        //猜你想看请求
+        if (!hasMore) {
+          if (state.list.isEmpty) {
+            await getCartoonHot();
+          }
+        } else {
+          update(['want']);
+        }
+
+        state.isCollectionEmpty = !hasMore;
+
+        // update(['list']);
+        update();
+        return;
+      }
+      state.pullRefreshController.requestFail(isFirstPageNum: state.pageNumber == 1);
+    } catch (e) {
+      state.pullRefreshController.requestFail(isFirstPageNum: state.pageNumber == 1);
+    }
+  }
+
+  //获取猜你想看
+  getCartoonHot() async {
+    try {
+      Map<String, dynamic> data = {
+        "kind": state.kind.index,
+        "page": state.wantPageNumber,
+        "pageSize": state.wantPageSize,
+      };
+      BaseRespBean baseRespBean = await BookApi.getCartoonHot(data);
+      if (baseRespBean.isSuccess) {
+        MediaListEntity mediaListEntity = MediaListEntity.fromJson(baseRespBean.data);
+
+        state.wantToSeeList.addAll(mediaListEntity.mediaList ?? []);
+
+        bool hasMore = (mediaListEntity.mediaList?.length ?? 0) < state.pageSize ? false : true;
+
+        bool isEmpty = (state.list.isEmpty && state.wantToSeeList.isEmpty) ? true : false;
+
+        state.pullRefreshController
+            .requestSuccess(isFirstPageNum: state.wantPageNumber == 1, hasMore: hasMore, isEmpty: isEmpty);
+
+        update(['want']);
+        return;
+      }
+      state.pullRefreshController.requestFail(isFirstPageNum: state.wantPageNumber == 1);
+    } catch (e) {
+      state.pullRefreshController.requestFail(isFirstPageNum: state.wantPageNumber == 1);
+    }
+  }
+}

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="25px" viewBox="0 0 24 25" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 54.1 (76490) - https://sketchapp.com -->
+    <title>播放备份</title>
+    <desc>Created with Sketch.</desc>
+    <g id="影院和社区" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="发布/视频" transform="translate(-55.000000, -242.000000)">
+            <g id="播放备份" transform="translate(55.000000, 242.500000)">
+                <circle id="椭圆形" fill="#000000" opacity="0.5" cx="12" cy="12" r="12"></circle>
+                <path d="M15.5065637,9.55538629 L18.54045,14.5199275 C19.1164278,15.4624366 18.8192954,16.6934135 17.8767863,17.2693912 C17.5627705,17.4612898 17.2018958,17.5628276 16.8338863,17.5628276 L10.7661137,17.5628276 C9.66154418,17.5628276 8.76611368,16.6673971 8.76611368,15.5628276 C8.76611368,15.1948181 8.86765145,14.8339434 9.05955001,14.5199275 L12.0934363,9.55538629 C12.6694141,8.6128772 13.9003909,8.31574487 14.8429,8.89172264 C15.1136318,9.05716985 15.3411165,9.2846545 15.5065637,9.55538629 Z" id="三角形" fill="#FFFFFF" transform="translate(13.800000, 12.162828) rotate(-270.000000) translate(-13.800000, -12.162828) "></path>
+            </g>
+        </g>
+    </g>
+</svg>

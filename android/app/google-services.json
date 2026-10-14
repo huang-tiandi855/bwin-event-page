@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1086834750425",
+    "project_id": "yao-jing-95b5d",
+    "storage_bucket": "yao-jing-95b5d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1086834750425:android:4bed26243b709578395fc8",
+        "android_client_info": {
+          "package_name": "com.jyfls.shell"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1086834750425-pi84qp5a0fvd7lfa4bc6s6k44e8kv31k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQUAqLRqauIgOtizmF_95ywtG2TbEM2mI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1086834750425-pi84qp5a0fvd7lfa4bc6s6k44e8kv31k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
