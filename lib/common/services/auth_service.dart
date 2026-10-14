@@ -69,6 +69,8 @@ class AuthService {
         'channelCode': '',
       };
       final UserInfoModelEntity entity = await UserApi.freeRegister(body);
+      const MethodChannel openInstallChannel = MethodChannel("com.yaoJin/device");
+      await openInstallChannel.invokeMethod("reportRegister");
       UserStore.to.saveUserInfo(entity);
     } catch (e) {
       // 失败时清掉脏 token，避免下一次请求继续带过期 token 触发 1019 风暴

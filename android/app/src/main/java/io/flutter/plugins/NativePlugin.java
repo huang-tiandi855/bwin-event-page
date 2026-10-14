@@ -71,6 +71,9 @@ public static void registerWith(PluginRegistry.Registrar registrar) {
     }else if (call.method.equals("getChannel")) {
       // 获取android 渠道的东西
       result.success(getChannel(activity));
+    } else if (call.method.equals("reportRegister")) {
+      OpenInstall.reportRegister();
+      result.success(null);
     }
   }
 
