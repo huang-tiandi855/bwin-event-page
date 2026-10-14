@@ -15,6 +15,7 @@ import android.content.Intent
 import android.annotation.SuppressLint
 import android.util.Log
 import com.jyfls.shell.Utils.Companion.saveAlias
+import com.fm.openinstall.OpenInstall
 
 //import io.flutter.plugins.NativePlugin
 
@@ -49,6 +50,8 @@ class MainActivity: FlutterActivity() {
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
 
+        OpenInstall.clipBoardEnabled(true)
+        OpenInstall.init(this)
         NativePlugin.registerWith(this, flutterEngine)
 
 

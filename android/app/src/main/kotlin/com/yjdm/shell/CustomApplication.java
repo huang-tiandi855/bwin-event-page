@@ -16,6 +16,7 @@ import java.util.List;
 import io.flutter.app.FlutterApplication;
 import io.flutter.plugin.common.PluginRegistry;
 import io.flutter.plugins.GeneratedPluginRegistrant;
+import com.fm.openinstall.OpenInstall;
 //import io.flutter.plugins.NativePlugin;
 
 public class CustomApplication extends FlutterApplication implements Application.ActivityLifecycleCallbacks{
@@ -29,6 +30,7 @@ public class CustomApplication extends FlutterApplication implements Application
     @Override
     public void onCreate() {
         super.onCreate();
+        OpenInstall.preInit(this);
         registerActivityLifecycleCallbacks(this);
     }
 
